@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Agent;
@@ -7,6 +9,7 @@ use App\Models\Mission;
 use App\Models\Rating;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+
 class RatingFactory extends Factory
 {
     protected $model = Rating::class;

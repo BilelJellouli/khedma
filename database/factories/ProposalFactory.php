@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Enums\ProposalInitiator;
@@ -19,22 +21,22 @@ class ProposalFactory extends Factory
             'mission_id' => Mission::factory(),
             'customer_id' => User::factory()->customer(),
             'agent_id' => Agent::factory(),
-            'initiator' => $this->faker->randomElement(ProposalInitiator::cases())
+            'initiator' => $this->faker->randomElement(ProposalInitiator::cases()),
         ];
     }
 
     public function initiatedByCustomer(): static
     {
-        return $this->state(fn (array $attributes) => ['initiator' => ProposalInitiator::CUSTOMER]);
+        return $this->state(fn (array $attributes): array => ['initiator' => ProposalInitiator::CUSTOMER]);
     }
 
     public function initiatedByAgent(): static
     {
-        return $this->state(fn (array $attributes) => ['initiator' => ProposalInitiator::AGENT]);
+        return $this->state(fn (array $attributes): array => ['initiator' => ProposalInitiator::AGENT]);
     }
 
     public function initiatedBySystem(): static
     {
-        return $this->state(fn (array $attributes) => ['initiator' => ProposalInitiator::SYSTEM]);
+        return $this->state(fn (array $attributes): array => ['initiator' => ProposalInitiator::SYSTEM]);
     }
 }

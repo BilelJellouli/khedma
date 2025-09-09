@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\MissionStatus;
 use App\Enums\MissionType;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Mission extends Model
 {
     use HasFactory;
+    use HasUuids;
 
     protected $fillable = [
         'service_id',
@@ -20,7 +24,7 @@ class Mission extends Model
         'location',
         'status',
         'type',
-        'budget'
+        'budget',
     ];
 
     protected $casts = [

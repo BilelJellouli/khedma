@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Enums\MissionStatus;
@@ -29,36 +31,36 @@ class MissionFactory extends Factory
 
     public function pending(): static
     {
-        return $this->state(fn (array $attributes) => ['status' => MissionStatus::PENDING]);
+        return $this->state(fn (array $attributes): array => ['status' => MissionStatus::PENDING]);
     }
 
     public function live(): static
     {
-        return $this->state(fn (array $attributes) => ['status' => MissionStatus::LIVE]);
+        return $this->state(fn (array $attributes): array => ['status' => MissionStatus::LIVE]);
     }
 
     public function cancelled(): static
     {
-        return $this->state(fn (array $attributes) => ['status' => MissionStatus::CANCELLED]);
+        return $this->state(fn (array $attributes): array => ['status' => MissionStatus::CANCELLED]);
     }
 
     public function oneTime(): static
     {
-        return $this->state(fn (array $attributes) => ['type' => MissionType::ONE_TIME]);
+        return $this->state(fn (array $attributes): array => ['type' => MissionType::ONE_TIME]);
     }
 
     public function repetitive(): static
     {
-        return $this->state(fn (array $attributes) => ['type' => MissionType::REPETITIVE]);
+        return $this->state(fn (array $attributes): array => ['type' => MissionType::REPETITIVE]);
     }
 
     public function partTime(): static
     {
-        return $this->state(fn (array $attributes) => ['type' => MissionType::PART_TIME]);
+        return $this->state(fn (array $attributes): array => ['type' => MissionType::PART_TIME]);
     }
 
     public function fullTime(): static
     {
-        return $this->state(fn (array $attributes) => ['type' => MissionType::FULL_TIME]);
+        return $this->state(fn (array $attributes): array => ['type' => MissionType::FULL_TIME]);
     }
 }

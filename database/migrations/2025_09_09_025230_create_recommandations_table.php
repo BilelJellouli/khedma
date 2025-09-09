@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recommendations', function (Blueprint $table) {
+        Schema::create('recommendations', function (Blueprint $table): void {
             $table->uuid('id')->primary();
-            $table->foreignUuid('mission_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignUuid('customer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignUuid('agent_id')->constrained()->cascadeOnDelete();
-            $table->foreignUuid('customer_id')->constrained('users')->cascadeOnDelete();
             $table->string('relation');
             $table->text('comment');
             $table->timestamps();

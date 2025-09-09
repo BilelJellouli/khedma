@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('agents', function (Blueprint $table) {
+        Schema::create('agents', function (Blueprint $table): void {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->text('bio')->nullable();
@@ -23,7 +25,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('agent_service', function (Blueprint $table) {
+        Schema::create('agent_service', function (Blueprint $table): void {
             $table->foreignUuid('agent_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('service_id')->constrained()->cascadeOnDelete();
         });

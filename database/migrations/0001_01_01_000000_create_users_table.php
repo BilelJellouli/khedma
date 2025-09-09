@@ -23,7 +23,7 @@ return new class extends Migration
             $table->boolean('random_password')->default(false);
             $table->string('facebook_id')->nullable();
             $table->string('google_id')->nullable();
-            $table->timestamp('deactivated_at');
+            $table->timestamp('deactivated_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

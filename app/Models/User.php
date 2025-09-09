@@ -9,17 +9,16 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasUuids;
-    use HasFactory;
-    use Notifiable;
     use HasApiTokens;
+    use HasFactory;
+    use HasUuids;
+    use Notifiable;
 
     protected $fillable = [
         'name',
@@ -41,6 +40,16 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function missions(): HasMany
     {
-        return $this->hasMany(Mission::class);
+        return $this->hasMany(Mission::class, 'customer_id');
+    }
+
+    public function ratings(): HasMany
+    {
+        return $this->hasMany(Rating::class, 'customer_id');
+    }
+
+    public function recommendations(): HasMany
+    {
+        return $this->hasMany(Recommendation::class, 'customer_id');
     }
 }
