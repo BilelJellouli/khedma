@@ -11,16 +11,22 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^12.0",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.16",
+        "barryvdh/laravel-ide-helper": "^3.6",
         "fakerphp/faker": "^1.23",
+        "larastan/larastan": "^3.6",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",
-        "laravel/sail": "^1.41",
+        "laravel/sail": "^1.45",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
-        "phpunit/phpunit": "^11.5.3"
+        "phpunit/phpunit": "^11.5.3",
+        "rector/rector": "^2.1",
+        "tomasvotruba/type-coverage": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -57,6 +63,19 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"
+        ],
+        "ide-helper": [
+            "@php artisan ide-helper:eloquent",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta",
+            "@php artisan ide-helper:models --dir='Modules' --nowrite"
+        ],
+        "rector": "./vendor/bin/rector process",
+        "pint": "./vendor/bin/pint --repair",
+        "phpstan": "./vendor/bin/phpstan analyse",
+        "lint": [
+            "./vendor/bin/rector process",
+            "./vendor/bin/pint"
         ]
     },
     "extra": {
