@@ -1,0 +1,24 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/tomasvotruba/type-coverage/config/extension.neon
+parameters:
+    paths:
+        - app/
+        - database/
+    excludePaths:
+        - */Tests/*
+    level: 8
+    tmpDir: storage/framework/cache/phpstan
+    type_coverage:
+        return: 100
+        param: 100
+        property: 100
+    ignoreErrors:
+        - message: '#^Class .* uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types#'
+          path: '*/app/*'
+        #- identifier: missingType.iterableValue
+        #  path: '*/app/*'
+        #- message: '#Method .*::.*\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\.* does not specify its types#'
+        #  path: '*/app/*'
+        #- message: '#extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory#'
+        #  path: '*/app/*'
