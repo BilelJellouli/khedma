@@ -18,7 +18,9 @@ parameters:
           path: '*/app/*'
         #- identifier: missingType.iterableValue
         #  path: '*/app/*'
-        #- message: '#Method .*::.*\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\.* does not specify its types#'
-        #  path: '*/app/*'
+        - message: '#Method .*::.*\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\.* does not specify its types#'
+          path: '*/app/*'
         #- message: '#extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory#'
         #  path: '*/app/*'
+        - message: '#^Class Database\\Factories\\.* extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types: TModel#'
+          path: '*/database/*'
