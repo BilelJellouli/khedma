@@ -36,6 +36,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
         'random_password' => 'boolean',
         'role' => UserRole::class,
+        'deleted_at' => 'datetime',
+        'banned_at' => 'datetime',
     ];
 
     public function missions(): HasMany
