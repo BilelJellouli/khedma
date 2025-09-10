@@ -8,13 +8,19 @@ use App\Models\User;
 
 class CreateAgentUserAction extends CreateUserAction
 {
-    function getUserRole(): UserRole
+    public readonly UserRole $userRole;
+
+    public function __construct()
     {
-        return UserRole::AGENT;
+        $this->userRole = UserRole::AGENT;
     }
 
-    function getCreatedUserForRoleEvent(User $user): AgentUserCreated
+    public function execute(array $data): User
     {
-        return new AgentUserCreated($user);
+        $user = parent::execute($data);
+
+        AgentUserCreated::dispatch($user);
+
+        return $user;
     }
 }

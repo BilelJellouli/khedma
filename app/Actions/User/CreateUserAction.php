@@ -3,37 +3,31 @@
 namespace App\Actions\User;
 
 use App\Enums\UserRole;
-use App\Events\Users\AgentUserCreated;
-use App\Events\Users\CustomerUserCreated;
 use App\Events\Users\UserCreated;
 use App\Models\User;
-use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Str;
 
 abstract class CreateUserAction
 {
-    protected string $randomPassword;
-    public function __construct(
-        protected Dispatcher $dispatcher,
-    ) {
-        $this->randomPassword = Str::random(8);
-    }
-
-    abstract function getUserRole(): UserRole;
-    abstract function getCreatedUserForRoleEvent(User $user): CustomerUserCreated|AgentUserCreated;
-    final public function execute(array $data): User
+    public readonly UserRole $userRole;
+    public function execute(array $data): User
     {
+        $randomPassword = Str::random(8);
+
         $data = [
             ...$data,
-            'password' => bcrypt($data['password'] ?? $this->randomPassword),
+            'password' => bcrypt($data['password'] ?? $randomPassword),
             'random_password' => !isset($data['password']),
-            'role' => $this->getUserRole(),
+            'role' => $this->userRole,
         ];
 
-        $user = User::create($data);
+        $user = new User($data);
+
+        $user->role = $this->userRole;
+
+        $user->save();
 
         UserCreated::dispatch($user);
-        $this->dispatcher->dispatch($this->getCreatedUserForRoleEvent($user));
 
         return $user;
     }
