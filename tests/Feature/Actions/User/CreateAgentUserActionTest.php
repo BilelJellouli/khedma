@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Feature\Actions\User;
 
 use App\Actions\User\CreateAgentUserAction;
-use App\Actions\User\CreateCustomerUserAction;
 use App\Enums\UserRole;
 use App\Events\Users\AgentUserCreated;
-use App\Events\Users\CustomerUserCreated;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
@@ -17,9 +17,10 @@ class CreateAgentUserActionTest extends TestCase
     use RefreshDatabase;
 
     private array $data;
+
     private CreateAgentUserAction $action;
 
-    public function testCreateCustomerAndReturnUser(): void
+    public function test_create_customer_and_return_user(): void
     {
         $this->assertDatabaseCount(User::class, 0);
 
@@ -30,7 +31,7 @@ class CreateAgentUserActionTest extends TestCase
         $this->assertSame($user->role, UserRole::AGENT);
     }
 
-    public function testDispatchesCustomerUserCreated(): void
+    public function test_dispatches_customer_user_created(): void
     {
         Event::fake();
 
@@ -45,7 +46,7 @@ class CreateAgentUserActionTest extends TestCase
         $this->data = [
             'name' => 'Customer name',
             'email' => 'customer@example.com',
-            'password' => 'password'
+            'password' => 'password',
         ];
         $this->action = $this->app->make(CreateAgentUserAction::class);
     }

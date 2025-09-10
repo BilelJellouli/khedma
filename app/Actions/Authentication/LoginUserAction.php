@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Authentication;
 
 use App\Events\Authentication\UserLoggedIn;
@@ -14,16 +16,16 @@ use Illuminate\Support\Facades\Hash;
 class LoginUserAction
 {
     protected bool $apiLogin = false;
+
     protected string $device;
 
-    public function __construct(protected Factory $auth)
-    {
-    }
+    public function __construct(protected Factory $auth) {}
 
-    public function apiLogin (string $device): self
+    public function apiLogin(string $device): self
     {
         $this->device = $device;
         $this->apiLogin = true;
+
         return $this;
     }
 
@@ -32,21 +34,21 @@ class LoginUserAction
         $user = User::where('email', $email)->first();
 
         if (is_null($user)) {
-            throw new UserDoNotExistsException();
+            throw new UserDoNotExistsException;
         }
 
         if (! Hash::check($password, $user->password)) {
-            throw new WrongCredentialException();
+            throw new WrongCredentialException;
         }
 
         if (! is_null($user->banned_at)) {
-            throw new UserBannedException();
+            throw new UserBannedException;
         }
 
         UserLoggedIn::dispatch($user);
 
         if ($this->apiLogin) {
-            return new LoggedInUser($user ,$user->createToken($this->device)->plainTextToken);
+            return new LoggedInUser($user, $user->createToken($this->device)->plainTextToken);
         }
 
         $this->auth->guard()->login($user);

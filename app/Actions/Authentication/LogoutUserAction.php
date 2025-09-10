@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Authentication;
 
 use App\Events\Authentication\UserLoggedOut;
@@ -8,9 +10,7 @@ use Illuminate\Contracts\Auth\Factory;
 
 class LogoutUserAction
 {
-    public function __construct(protected Factory $auth)
-    {
-    }
+    public function __construct(protected Factory $auth) {}
 
     public function execute(User $user): void
     {

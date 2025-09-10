@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Authentication;
 
 use App\Actions\Authentication\LoginUserAction;
@@ -15,7 +17,7 @@ class LoginUsersController
         LoginUserRequest $request,
     ): JsonResponse {
 
-        [ 'email' => $email, 'password' => $password ] = $request->validated();
+        ['email' => $email, 'password' => $password] = $request->validated();
 
         /** @var LoggedInUser $loggedInUser */
         $loggedInUser = $loginUser->apiLogin('mobile')->execute($email, $password);

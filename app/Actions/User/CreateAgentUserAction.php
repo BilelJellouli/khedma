@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\User;
 
 use App\Enums\UserRole;
@@ -8,12 +10,7 @@ use App\Models\User;
 
 class CreateAgentUserAction extends CreateUserAction
 {
-    public readonly UserRole $userRole;
-
-    public function __construct()
-    {
-        $this->userRole = UserRole::AGENT;
-    }
+    protected UserRole $userRole = UserRole::AGENT;
 
     public function execute(array $data): User
     {

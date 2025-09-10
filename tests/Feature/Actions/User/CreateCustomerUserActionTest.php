@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Actions\User;
 
 use App\Actions\User\CreateCustomerUserAction;
@@ -15,9 +17,10 @@ class CreateCustomerUserActionTest extends TestCase
     use RefreshDatabase;
 
     private array $data;
+
     private CreateCustomerUserAction $action;
 
-    public function testCreateCustomerAndReturnUser(): void
+    public function test_create_customer_and_return_user(): void
     {
         $this->assertDatabaseCount(User::class, 0);
 
@@ -28,7 +31,7 @@ class CreateCustomerUserActionTest extends TestCase
         $this->assertSame($user->role, UserRole::CUSTOMER);
     }
 
-    public function testDispatchesCustomerUserCreated(): void
+    public function test_dispatches_customer_user_created(): void
     {
         Event::fake();
 
@@ -43,7 +46,7 @@ class CreateCustomerUserActionTest extends TestCase
         $this->data = [
             'name' => 'Customer name',
             'email' => 'customer@example.com',
-            'password' => 'password'
+            'password' => 'password',
         ];
         $this->action = $this->app->make(CreateCustomerUserAction::class);
     }

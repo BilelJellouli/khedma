@@ -1,14 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Feature\Actions\User;
 
 use App\Actions\User\CreateUserAction;
 use App\Enums\UserRole;
-use App\Events\Users\AgentUserCreated;
-use App\Events\Users\CustomerUserCreated;
 use App\Events\Users\UserCreated;
 use App\Models\User;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
@@ -20,9 +19,10 @@ class CreateUserActionTest extends TestCase
     use RefreshDatabase;
 
     private array $data;
+
     private CreateUserAction $action;
 
-    public function testCreateUserAndReturn(): void
+    public function test_create_user_and_return(): void
     {
         $this->assertDatabaseEmpty(User::class);
 
@@ -36,14 +36,14 @@ class CreateUserActionTest extends TestCase
         $this->assertTrue(Hash::check($this->data['password'], $user->password));
     }
 
-    public function testWillAssignRandomPasswordIfPasswordWasNotSet(): void
+    public function test_will_assign_random_password_if_password_was_not_set(): void
     {
         $user = $this->action->execute(Arr::except($this->data, 'password'));
         $this->assertTrue($user->random_password);
         $this->assertNotNull($user->password);
     }
 
-    public function testDispatchesUserCreated(): void
+    public function test_dispatches_user_created(): void
     {
         Event::fake([UserCreated::class]);
 
@@ -64,12 +64,7 @@ class CreateUserActionTest extends TestCase
     }
 }
 
-class TestCreateUserAction extends CreateUserAction {
-
-    public readonly UserRole $userRole;
-
-    public function __construct()
-    {
-        $this->userRole = UserRole::CUSTOMER;
-    }
+class TestCreateUserAction extends CreateUserAction
+{
+    protected UserRole $userRole = UserRole::ADMIN;
 }

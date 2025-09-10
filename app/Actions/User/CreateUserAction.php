@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\User;
 
 use App\Enums\UserRole;
@@ -9,7 +11,8 @@ use Illuminate\Support\Str;
 
 abstract class CreateUserAction
 {
-    public readonly UserRole $userRole;
+    protected UserRole $userRole;
+
     public function execute(array $data): User
     {
         $randomPassword = Str::random(8);
@@ -17,7 +20,7 @@ abstract class CreateUserAction
         $data = [
             ...$data,
             'password' => bcrypt($data['password'] ?? $randomPassword),
-            'random_password' => !isset($data['password']),
+            'random_password' => ! isset($data['password']),
             'role' => $this->userRole,
         ];
 

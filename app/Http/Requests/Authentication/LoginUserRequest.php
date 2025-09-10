@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Authentication;
 
 use App\Models\User;
@@ -12,7 +14,7 @@ class LoginUserRequest extends FormRequest
     {
         return [
             'email' => ['required', 'string', Rule::exists(User::class, 'email')->whereNull('banned_at')],
-            'password' => ['required', 'string', 'min:8']
+            'password' => ['required', 'string', 'min:8'],
         ];
     }
 }
