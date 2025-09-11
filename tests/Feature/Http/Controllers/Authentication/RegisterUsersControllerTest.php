@@ -28,7 +28,7 @@ class RegisterUsersControllerTest extends TestCase
                 'data' => [
                     'user',
                     'accessToken',
-                ]
+                ],
             ]);
     }
 

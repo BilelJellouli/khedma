@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Feature\Http\Controllers\Missions;
+namespace Tests\Feature\Http\Controllers\Missions;
 
 use App\Actions\Mission\UpdateMissionAction;
 use App\Enums\MissionStatus;

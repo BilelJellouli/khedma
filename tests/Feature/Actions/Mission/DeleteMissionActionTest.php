@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Actions\Mission;
 
 use App\Actions\Mission\DeleteMissionAction;
@@ -14,6 +16,7 @@ class DeleteMissionActionTest extends TestCase
     use RefreshDatabase;
 
     private Mission $mission;
+
     private DeleteMissionAction $action;
 
     public function testDeleteMissionFromDatabase(): void

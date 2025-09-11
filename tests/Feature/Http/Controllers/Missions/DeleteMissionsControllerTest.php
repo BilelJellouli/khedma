@@ -1,6 +1,8 @@
 <?php
 
-namespace Feature\Http\Controllers\Missions;
+declare(strict_types=1);
+
+namespace Tests\Feature\Http\Controllers\Missions;
 
 use App\Actions\Mission\DeleteMissionAction;
 use App\Models\Mission;
@@ -13,7 +15,9 @@ class DeleteMissionsControllerTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private Mission $mission;
+
     private string $route;
 
     public function testDeleteMissionAndReturnNoContent(): void

@@ -28,7 +28,7 @@ class LoginUsersControllerTest extends TestCase
                 'data' => [
                     'user',
                     'accessToken',
-                ]
+                ],
             ]);
     }
 
