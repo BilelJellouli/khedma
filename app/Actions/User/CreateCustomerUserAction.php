@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Actions\User;
 
 use App\Enums\UserRole;
-use App\Events\Users\CustomerUserCreated;
+use App\Events\User\CustomerUserCreated;
 use App\Models\User;
 
 class CreateCustomerUserAction extends CreateUserAction

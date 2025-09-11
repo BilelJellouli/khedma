@@ -64,6 +64,14 @@
             "@php artisan config:clear --ansi",
             "@php artisan test"
         ],
+        "migrate": [
+            "@php artisan migrate",
+            "@php artisan migrate --path=database/data"
+        ],
+        "migrate:fresh": [
+            "@php artisan migrate:fresh",
+            "@php artisan migrate --path=database/data"
+        ],
         "ide-helper": [
             "@php artisan ide-helper:eloquent",
             "@php artisan ide-helper:generate",

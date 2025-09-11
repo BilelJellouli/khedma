@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Actions\User;
 
 use App\Enums\UserRole;
-use App\Events\Users\UserCreated;
+use App\Events\User\UserCreated;
 use App\Models\User;
 use Illuminate\Support\Str;
 

@@ -6,7 +6,7 @@ namespace Tests\Feature\Actions\User;
 
 use App\Actions\User\CreateAgentUserAction;
 use App\Enums\UserRole;
-use App\Events\Users\AgentUserCreated;
+use App\Events\User\AgentUserCreated;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;

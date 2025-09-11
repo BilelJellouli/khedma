@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\Authentication\LoginUsersController;
 use App\Http\Controllers\Authentication\LogoutUsersController;
 use App\Http\Controllers\Authentication\RegisterUsersController;
+use App\Http\Controllers\Mission\StoreMissionsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,8 @@ Route::middleware(['api', 'guest'])->group(function (): void {
 Route::middleware(['api', 'auth:sanctum'])->group(function (): void {
     Route::get('/user', fn (Request $request) => $request->user());
     Route::post('auth/logout', LogoutUsersController::class)->name('auth.logout');
+
+    Route::prefix('missions')->group(function (): void {
+        Route::post('/', StoreMissionsController::class)->name('missions.store');
+    });
 });
