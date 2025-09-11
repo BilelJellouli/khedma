@@ -9,7 +9,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MissionCreated
+class MissionUpdated
 {
     use Dispatchable;
     use Queueable;

@@ -4,24 +4,21 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Mission;
 
-use App\Actions\Mission\CreateMissionAction;
-use App\Http\Requests\Mission\CreateMissionRequest;
+use App\Actions\Mission\UpdateMissionAction;
+use App\Http\Requests\Mission\UpdateMissionRequest;
 use App\Http\Resources\MissionResource;
-use App\Models\User;
+use App\Models\Mission;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
-class StoreMissionsController
+class UpdateMissionsController
 {
     public function __invoke(
-        CreateMissionAction $createMission,
-        CreateMissionRequest $request,
+        UpdateMissionAction $updateMission,
+        UpdateMissionRequest $request,
+        Mission $mission
     ): JsonResponse {
-        /** @var User $customer */
-        $customer = $request->user();
-
-        $mission = $createMission->execute(
-            $customer,
+        $mission = $updateMission->execute(
+            $mission,
             [
                 ...$request->validated(),
                 'status' => $request->status(),
@@ -29,7 +26,7 @@ class StoreMissionsController
         );
 
         return response()->json([
-            'mission' => MissionResource::make($mission->loadMissing('service')),
-        ], Response::HTTP_CREATED);
+            'data' => MissionResource::make($mission->loadMissing('service')),
+        ]);
     }
 }

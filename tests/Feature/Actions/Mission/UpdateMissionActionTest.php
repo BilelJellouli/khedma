@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Actions\Mission;
+namespace Feature\Actions\Mission;
 
-use App\Actions\Mission\CreateMissionAction;
+use App\Actions\Mission\UpdateMissionAction;
 use App\Enums\MissionStatus;
 use App\Enums\MissionType;
-use App\Events\Mission\MissionCreated;
+use App\Events\Mission\MissionUpdated;
 use App\Models\Mission;
 use App\Models\Service;
 use App\Models\User;
@@ -15,7 +15,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
-class CreateMissionActionTest extends TestCase
+class UpdateMissionActionTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -25,16 +25,17 @@ class CreateMissionActionTest extends TestCase
 
     private Service $service;
 
-    private CreateMissionAction $action;
+    private Mission $mission;
 
-    public function testCreateMissionAndReturn(): void
+    private UpdateMissionAction $action;
+
+    public function testUpdateMissionAndReturn(): void
     {
-        $this->assertDatabaseEmpty(Mission::class);
+        $this->assertFalse($this->mission->service->is($this->service));
 
-        $mission = $this->action->execute($this->user, $this->data);
+        $mission = $this->action->execute($this->mission, $this->data);
 
-        $this->assertInstanceOf(Mission::class, $mission);
-        $this->assertDatabaseHas(Mission::class, $mission->toArray());
+        $this->assertInstanceOf(Mission::class, $mission->refresh());
 
         $this->assertSame($this->data['title'], $mission->title);
         $this->assertSame($this->data['description'], $mission->description);
@@ -43,33 +44,50 @@ class CreateMissionActionTest extends TestCase
         $this->assertSame($this->data['budget'], $mission->budget);
         $this->assertSame($this->data['location'], $mission->location);
         $this->assertTrue($mission->service->is($this->service));
-        $this->assertTrue($mission->customer->is($this->user));
     }
 
-    public function testDispatchesMissionCreatedEvent(): void
+    public function testActionWontOverrideCustomer(): void
+    {
+        $user = User::factory()->create();
+
+        $mission = $this->action->execute($this->mission, [
+            ...$this->data,
+            'customer_id' => $user->id,
+        ]);
+
+        $this->assertFalse($mission->customer->is($user));
+    }
+
+    public function testDispatchesMissionUpdatedEvent(): void
     {
         Event::fake();
 
-        $mission = $this->app->make(CreateMissionAction::class)
-            ->execute($this->user, $this->data);
+        $mission = $this->app->make(UpdateMissionAction::class)
+            ->execute($this->mission, $this->data);
 
-        Event::assertDispatched(fn (MissionCreated $event) => $event->mission->is($mission));
+        Event::assertDispatched(fn (MissionUpdated $event) => $event->mission->is($mission));
     }
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->user = User::factory()->customer()->create();
+
+        $this->mission = Mission::factory()->create([
+            'type' => MissionType::PART_TIME,
+            'status' => MissionStatus::PENDING,
+        ]);
+
         $this->service = Service::factory()->create();
+
         $this->data = [
             'service_id' => $this->service->id,
-            'title' => 'Mission title',
-            'description' => 'Mission description',
-            'location' => 'Location',
+            'title' => 'Mission title updated',
+            'description' => 'Mission description updated',
+            'location' => 'Location updated',
             'status' => MissionStatus::LIVE,
             'type' => MissionType::ONE_TIME,
-            'budget' => '500 Dinar',
+            'budget' => 'Updated updated',
         ];
-        $this->action = $this->app->make(CreateMissionAction::class);
+        $this->action = $this->app->make(UpdateMissionAction::class);
     }
 }

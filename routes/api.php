@@ -6,6 +6,7 @@ use App\Http\Controllers\Authentication\LoginUsersController;
 use App\Http\Controllers\Authentication\LogoutUsersController;
 use App\Http\Controllers\Authentication\RegisterUsersController;
 use App\Http\Controllers\Mission\StoreMissionsController;
+use App\Http\Controllers\Mission\UpdateMissionsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,6 @@ Route::middleware(['api', 'auth:sanctum'])->group(function (): void {
 
     Route::prefix('missions')->group(function (): void {
         Route::post('/', StoreMissionsController::class)->name('missions.store');
+        Route::put('{mission}', UpdateMissionsController::class)->name('missions.update');
     });
 });

@@ -28,8 +28,10 @@ class RegisterUsersController
             ->execute($user->email, $request->input('password'));
 
         return response()->json([
-            'user' => UserResource::make($loggedInUser->user),
-            'accessToken' => $loggedInUser->plainTextAccessToken,
+            'data' => [
+                'user' => UserResource::make($loggedInUser->user),
+                'accessToken' => $loggedInUser->plainTextAccessToken,
+            ],
         ], Response::HTTP_CREATED);
     }
 }

@@ -4,34 +4,24 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Mission;
 
-use App\Enums\MissionStatus;
-use App\Enums\MissionType;
-use App\Models\Service;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
+use App\Enums\UserRole;
+use App\Models\Mission;
+use App\Models\User;
 
-class CreateMissionRequest extends FormRequest
+class UpdateMissionRequest extends CreateMissionRequest
 {
-    public function rules(): array
+    public function authorize(): bool
     {
-        return [
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'location' => ['required', 'string', 'max:255'],
-            'published' => ['required', 'boolean'],
-            'type' => ['required', new Enum(MissionType::class)],
-            'budget' => ['required', 'string'],
-            'service_id' => ['required', 'uuid', Rule::exists(Service::class, 'id')],
-        ];
-    }
+        /** @var User $user */
+        $user = $this->user();
 
-    public function status(): MissionStatus
-    {
-        if ($this->boolean('published')) {
-            return MissionStatus::LIVE;
+        /** @var Mission $mission */
+        $mission = $this->route()->parameter('mission'); // @phpstan-ignore-line
+
+        if ($user->role === UserRole::ADMIN) {
+            return true;
         }
 
-        return MissionStatus::PENDING;
+        return $user->id === $mission->customer_id;
     }
 }

@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace App\Actions\Mission;
 
-use App\Events\Mission\MissionCreated;
+use App\Events\Mission\MissionUpdated;
 use App\Models\Mission;
-use App\Models\User;
 
-class CreateMissionAction
+class UpdateMissionAction
 {
-    public function execute(User $customer, array $data): Mission
+    public function execute(Mission $mission, array $data): Mission
     {
-        /** @var Mission $mission */
-        $mission = $customer->missions()->create($data);
+        $mission->update($data);
 
-        MissionCreated::dispatch($mission);
+        MissionUpdated::dispatch($mission);
 
         return $mission;
     }
