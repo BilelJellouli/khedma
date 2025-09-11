@@ -6,7 +6,7 @@ namespace Tests\Feature\Actions\User;
 
 use App\Actions\User\CreateUserAction;
 use App\Enums\UserRole;
-use App\Events\Users\UserCreated;
+use App\Events\User\UserCreated;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;

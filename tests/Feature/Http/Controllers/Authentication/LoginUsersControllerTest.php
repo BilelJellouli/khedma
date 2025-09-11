@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Feature\Http\Controllers\Authentication;
+namespace Tests\Feature\Http\Controllers\Authentication;
 
 use App\Actions\Authentication\LoginUserAction;
 use App\Models\User;
