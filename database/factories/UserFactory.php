@@ -55,6 +55,11 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes): array => ['role' => UserRole::AGENT]);
     }
 
+    public function notAdmin(): static
+    {
+        return $this->state(fn (array $attributes): array => ['role' => $this->faker->randomElement([UserRole::CUSTOMER, UserRole::AGENT])]);
+    }
+
     public function deactivated(): static
     {
         return $this->state(fn (array $attributes): array => ['deactivated_at' => Carbon::now()]);
