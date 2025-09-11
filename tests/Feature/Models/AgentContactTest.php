@@ -14,7 +14,7 @@ class AgentContactTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_belongs_to_agent(): void
+    public function testBelongsToAgent(): void
     {
         $agent = Agent::factory()->create();
         $contact = AgentContact::factory()->for($agent)->create();

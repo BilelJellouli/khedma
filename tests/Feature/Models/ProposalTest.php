@@ -16,7 +16,7 @@ class ProposalTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_belongs_to_mission(): void
+    public function testBelongsToMission(): void
     {
         $mission = Mission::factory()->create();
         $proposal = Proposal::factory()->for($mission)->create();
@@ -26,7 +26,7 @@ class ProposalTest extends TestCase
         $this->assertTrue($proposal->mission->is($mission));
     }
 
-    public function test_belong_to_agent(): void
+    public function testBelongToAgent(): void
     {
         $agent = Agent::factory()->create();
         $proposal = Proposal::factory()->for($agent)->create();
@@ -36,7 +36,7 @@ class ProposalTest extends TestCase
         $this->assertTrue($proposal->agent->is($agent));
     }
 
-    public function test_belongs_to_customer(): void
+    public function testBelongsToCustomer(): void
     {
         $customer = User::factory()->customer()->create();
         $proposal = Proposal::factory()->for($customer, 'customer')->create();

@@ -17,7 +17,7 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_has_many_missions(): void
+    public function testHasManyMissions(): void
     {
         $user = User::factory()->customer()->create();
         Mission::factory(2)->for($user, 'customer')->create();
@@ -28,7 +28,7 @@ class UserTest extends TestCase
         $this->assertInstanceOf(Mission::class, $user->missions->first());
     }
 
-    public function test_has_many_ratings(): void
+    public function testHasManyRatings(): void
     {
         $user = User::factory()->customer()->create();
         Rating::factory(2)->for($user, 'customer')->create();
@@ -38,7 +38,7 @@ class UserTest extends TestCase
         $this->assertInstanceOf(Rating::class, $user->ratings->first());
     }
 
-    public function test_has_many_recommendations(): void
+    public function testHasManyRecommendations(): void
     {
         $user = User::factory()->customer()->create();
         Recommendation::factory(2)->for($user, 'customer')->create();

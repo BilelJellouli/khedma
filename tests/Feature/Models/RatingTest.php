@@ -16,7 +16,7 @@ class RatingTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_belongs_to_agent(): void
+    public function testBelongsToAgent(): void
     {
         $agent = Agent::factory()->create();
         $rating = Rating::factory()->for($agent)->create();
@@ -26,7 +26,7 @@ class RatingTest extends TestCase
         $this->assertTrue($rating->agent()->is($agent));
     }
 
-    public function test_belongs_to_customer(): void
+    public function testBelongsToCustomer(): void
     {
         $customer = User::factory()->customer()->create();
         $rating = Rating::factory()->for($customer, 'customer')->create();
@@ -36,7 +36,7 @@ class RatingTest extends TestCase
         $this->assertTrue($rating->customer->is($customer));
     }
 
-    public function test_belongs_to_mission(): void
+    public function testBelongsToMission(): void
     {
         $mission = Mission::factory()->create();
         $rating = Rating::factory()->for($mission)->create();
@@ -46,7 +46,7 @@ class RatingTest extends TestCase
         $this->assertTrue($rating->mission->is($mission));
     }
 
-    public function test_mission_will_be_set_null_if_mission_deleted(): void
+    public function testMissionWillBeSetNullIfMissionDeleted(): void
     {
         $mission = Mission::factory()->create();
         $rating = Rating::factory()->for($mission)->create();

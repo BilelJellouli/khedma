@@ -16,8 +16,8 @@ parameters:
     ignoreErrors:
         - message: '#^Class .* uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types#'
           path: '*/app/*'
-        #- identifier: missingType.iterableValue
-        #  path: '*/app/*'
+        - identifier: missingType.iterableValue
+          path: '*/app/*'
         - message: '#Method .*::.*\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\.* does not specify its types#'
           path: '*/app/*'
         #- message: '#extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory#'
