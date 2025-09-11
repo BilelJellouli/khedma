@@ -29,7 +29,7 @@ class StoreMissionsController
         );
 
         return response()->json([
-            'mission' => MissionResource::make($mission->loadMissing('service')),
+            'data' => MissionResource::make($mission->loadMissing('service')),
         ], Response::HTTP_CREATED);
     }
 }

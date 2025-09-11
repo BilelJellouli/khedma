@@ -27,7 +27,7 @@ class StoreMissionsControllerTest extends TestCase
         $this->postJson($this->route, $this->data)
             ->assertCreated()
             ->assertJsonStructure([
-                'mission',
+                'data',
             ]);
     }
 

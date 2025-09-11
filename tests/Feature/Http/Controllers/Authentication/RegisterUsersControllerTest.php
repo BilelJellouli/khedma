@@ -25,8 +25,10 @@ class RegisterUsersControllerTest extends TestCase
         $this->postJson($this->route, $this->data)
             ->assertCreated()
             ->assertJsonStructure([
-                'user',
-                'accessToken',
+                'data' => [
+                    'user',
+                    'accessToken',
+                ]
             ]);
     }
 

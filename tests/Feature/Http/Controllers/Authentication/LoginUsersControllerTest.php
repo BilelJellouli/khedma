@@ -25,8 +25,10 @@ class LoginUsersControllerTest extends TestCase
         $this->post($this->route, $this->data)
             ->assertOk()
             ->assertJsonStructure([
-                'user',
-                'accessToken',
+                'data' => [
+                    'user',
+                    'accessToken',
+                ]
             ]);
     }
 
