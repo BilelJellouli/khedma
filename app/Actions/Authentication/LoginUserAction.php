@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginUserAction
 {
-    protected bool $apiLogin = false;
+    private bool $apiLogin = false;
 
-    protected string $device;
+    private string $device;
 
-    public function __construct(protected Factory $auth) {}
+    public function __construct(private readonly Factory $auth) {}
 
     public function apiLogin(string $device): self
     {

@@ -17,7 +17,7 @@ class ServiceTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_has_many_missions(): void
+    public function testHasManyMissions(): void
     {
         $service = Service::factory()->create();
         Mission::factory(2)->for($service)->create();
@@ -28,7 +28,7 @@ class ServiceTest extends TestCase
         $this->assertInstanceOf(Mission::class, $service->missions->first());
     }
 
-    public function test_belongs_to_many_agents(): void
+    public function testBelongsToManyAgents(): void
     {
         $service = Service::factory()->create();
         $agent = Agent::factory()->create();

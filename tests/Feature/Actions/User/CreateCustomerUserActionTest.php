@@ -20,7 +20,7 @@ class CreateCustomerUserActionTest extends TestCase
 
     private CreateCustomerUserAction $action;
 
-    public function test_create_customer_and_return_user(): void
+    public function testCreateCustomerAndReturnUser(): void
     {
         $this->assertDatabaseCount(User::class, 0);
 
@@ -31,7 +31,7 @@ class CreateCustomerUserActionTest extends TestCase
         $this->assertSame($user->role, UserRole::CUSTOMER);
     }
 
-    public function test_dispatches_customer_user_created(): void
+    public function testDispatchesCustomerUserCreated(): void
     {
         Event::fake();
 

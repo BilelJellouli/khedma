@@ -59,4 +59,9 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes): array => ['deactivated_at' => Carbon::now()]);
     }
+
+    public function banned(): static
+    {
+        return $this->state(fn (array $attributes): array => ['banned_at' => Carbon::now()]);
+    }
 }

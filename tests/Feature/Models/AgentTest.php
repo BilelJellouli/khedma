@@ -22,7 +22,7 @@ class AgentTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_belongs_to_user(): void
+    public function testBelongsToUser(): void
     {
         $user = User::factory()->agent()->create();
         $agent = Agent::factory()->for($user)->create();
@@ -32,7 +32,7 @@ class AgentTest extends TestCase
         $this->assertTrue($agent->user->is($user));
     }
 
-    public function test_has_many_contacts(): void
+    public function testHasManyContacts(): void
     {
         $agent = Agent::factory()->create();
         AgentContact::factory(2)->for($agent)->create();
@@ -43,7 +43,7 @@ class AgentTest extends TestCase
         $this->assertInstanceOf(AgentContact::class, $agent->contacts->first());
     }
 
-    public function test_belong_to_many_services(): void
+    public function testBelongToManyServices(): void
     {
         $agent = Agent::factory()->create();
         $service = Service::factory()->create();
@@ -55,7 +55,7 @@ class AgentTest extends TestCase
         $this->assertInstanceOf(Service::class, $agent->services->first());
     }
 
-    public function test_has_many_proposal(): void
+    public function testHasManyProposal(): void
     {
         $agent = Agent::factory()->create();
         Proposal::factory(2)->for($agent)->create();
@@ -66,7 +66,7 @@ class AgentTest extends TestCase
         $this->assertCount(2, $agent->proposals);
     }
 
-    public function test_has_many_ratings(): void
+    public function testHasManyRatings(): void
     {
         $agent = Agent::factory()->create();
         Rating::factory(2)->for($agent)->create();
@@ -77,7 +77,7 @@ class AgentTest extends TestCase
         $this->assertCount(2, $agent->ratings);
     }
 
-    public function test_has_many_recommendations(): void
+    public function testHasManyRecommendations(): void
     {
         $agent = Agent::factory()->create();
         Recommendation::factory(2)->for($agent)->create();

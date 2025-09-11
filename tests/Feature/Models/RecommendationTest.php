@@ -15,7 +15,7 @@ class RecommendationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_belongs_to_agent(): void
+    public function testBelongsToAgent(): void
     {
         $agent = Agent::factory()->create();
         $recommendation = Recommendation::factory()->for($agent)->create();
@@ -25,7 +25,7 @@ class RecommendationTest extends TestCase
         $this->assertTrue($recommendation->agent()->is($agent));
     }
 
-    public function test_belongs_to_customer(): void
+    public function testBelongsToCustomer(): void
     {
         $customer = User::factory()->customer()->create();
         $recommendation = Recommendation::factory()->for($customer, 'customer')->create();
@@ -35,7 +35,7 @@ class RecommendationTest extends TestCase
         $this->assertTrue($recommendation->customer->is($customer));
     }
 
-    public function test_deleting_customer_will_be_set_to_null(): void
+    public function testDeletingCustomerWillBeSetToNull(): void
     {
         $customer = User::factory()->customer()->create();
         $recommendation = Recommendation::factory()->for($customer, 'customer')->create();

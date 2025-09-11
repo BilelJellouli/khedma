@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Feature\Actions\User;
+namespace Tests\Feature\Actions\User;
 
 use App\Actions\User\CreateAgentUserAction;
 use App\Enums\UserRole;
@@ -20,7 +20,7 @@ class CreateAgentUserActionTest extends TestCase
 
     private CreateAgentUserAction $action;
 
-    public function test_create_customer_and_return_user(): void
+    public function testCreateCustomerAndReturnUser(): void
     {
         $this->assertDatabaseCount(User::class, 0);
 
@@ -31,7 +31,7 @@ class CreateAgentUserActionTest extends TestCase
         $this->assertSame($user->role, UserRole::AGENT);
     }
 
-    public function test_dispatches_customer_user_created(): void
+    public function testDispatchesCustomerUserCreated(): void
     {
         Event::fake();
 

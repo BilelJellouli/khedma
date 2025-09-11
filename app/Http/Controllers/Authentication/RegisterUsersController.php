@@ -22,6 +22,7 @@ class RegisterUsersController
         UserRole $userRole,
     ): JsonResponse {
         $user = $registerUser->execute($userRole, $request->validated());
+
         /** @var LoggedInUser $loggedInUser */
         $loggedInUser = $loginUser->apiLogin('mobile')
             ->execute($user->email, $request->input('password'));

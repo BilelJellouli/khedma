@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Feature\Actions\User;
+namespace Tests\Feature\Actions\User;
 
 use App\Actions\User\CreateUserAction;
 use App\Enums\UserRole;
@@ -22,7 +22,7 @@ class CreateUserActionTest extends TestCase
 
     private CreateUserAction $action;
 
-    public function test_create_user_and_return(): void
+    public function testCreateUserAndReturn(): void
     {
         $this->assertDatabaseEmpty(User::class);
 
@@ -36,14 +36,14 @@ class CreateUserActionTest extends TestCase
         $this->assertTrue(Hash::check($this->data['password'], $user->password));
     }
 
-    public function test_will_assign_random_password_if_password_was_not_set(): void
+    public function testWillAssignRandomPasswordIfPasswordWasNotSet(): void
     {
         $user = $this->action->execute(Arr::except($this->data, 'password'));
         $this->assertTrue($user->random_password);
         $this->assertNotNull($user->password);
     }
 
-    public function test_dispatches_user_created(): void
+    public function testDispatchesUserCreated(): void
     {
         Event::fake([UserCreated::class]);
 

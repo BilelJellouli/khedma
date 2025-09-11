@@ -18,7 +18,7 @@ class MissionTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_belongs_to_service(): void
+    public function testBelongsToService(): void
     {
         $service = Service::factory()->create();
         $mission = Mission::factory()->for($service)->create();
@@ -28,7 +28,7 @@ class MissionTest extends TestCase
         $this->assertTrue($mission->service->is($service));
     }
 
-    public function test_belongs_to_customer(): void
+    public function testBelongsToCustomer(): void
     {
         $customer = User::factory()->customer()->create();
         $mission = Mission::factory()->for($customer, 'customer')->create();
@@ -38,7 +38,7 @@ class MissionTest extends TestCase
         $this->assertTrue($mission->customer->is($customer));
     }
 
-    public function test_has_many_proposals(): void
+    public function testHasManyProposals(): void
     {
         $mission = Mission::factory()->create();
         Proposal::factory(2)->for($mission)->create();
