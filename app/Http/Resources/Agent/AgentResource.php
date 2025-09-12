@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Resources;
+declare(strict_types=1);
+
+namespace App\Http\Resources\Agent;
 
 use App\Models\Agent;
 use Illuminate\Http\Request;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Mission;
 
 use App\Enums\UserRole;
@@ -19,7 +21,7 @@ class ShowMissionsController
         $user = $request->user();
 
         if ($user->role !== UserRole::AGENT) {
-            $mission->loadMissing(['proposals']);
+            $mission->loadMissing(['proposals.agent.user:name']);
         }
 
         if ($mission->customer_id !== $user->id) {

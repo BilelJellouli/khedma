@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Http\Controllers\Missions;
 
 use App\Models\Mission;
@@ -12,6 +14,7 @@ class ShowMissionsControllerTest extends TestCase
     use RefreshDatabase;
 
     private Mission $mission;
+
     private string $route;
 
     public function testReturnShowedMethod(): void
@@ -30,8 +33,8 @@ class ShowMissionsControllerTest extends TestCase
                     'type',
                     'budget',
                     'service',
-                    'proposals'
-                ]
+                    'proposals',
+                ],
             ]);
     }
 
@@ -62,7 +65,7 @@ class ShowMissionsControllerTest extends TestCase
 
     protected function setUp(): void
     {
-        Parent::setUp();
+        parent::setUp();
         $this->mission = Mission::factory()->create();
         $this->route = route('missions.show', ['mission' => $this->mission]);
     }
