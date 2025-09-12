@@ -1,16 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Mission;
 
 use App\Enums\UserRole;
 use App\Http\Resources\MissionResource;
 use App\Models\Mission;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ListMissionsController
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): JsonResponse
     {
         /** @var User $user */
         $user = $request->user();
@@ -26,7 +29,7 @@ class ListMissionsController
         }
 
         return response()->json([
-            'data' => MissionResource::collection($missionsQuery->get())
+            'data' => MissionResource::collection($missionsQuery->get()),
         ]);
     }
 }
