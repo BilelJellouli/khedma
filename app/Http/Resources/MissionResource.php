@@ -24,6 +24,7 @@ class MissionResource extends JsonResource
             'budget' => $this->resource->budget,
             'customer' => UserResource::make($this->whenLoaded('customer')),
             'service' => ServiceResource::make($this->whenLoaded('service')),
+            'proposals' => ProposalResource::collection($this->whenLoaded('proposals')),
         ];
     }
 }
