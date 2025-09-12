@@ -6,6 +6,7 @@ use App\Http\Controllers\Authentication\LoginUsersController;
 use App\Http\Controllers\Authentication\LogoutUsersController;
 use App\Http\Controllers\Authentication\RegisterUsersController;
 use App\Http\Controllers\Mission\DeleteMissionsController;
+use App\Http\Controllers\Mission\ListMissionsController;
 use App\Http\Controllers\Mission\ShowMissionsController;
 use App\Http\Controllers\Mission\StoreMissionsController;
 use App\Http\Controllers\Mission\UpdateMissionsController;
@@ -22,6 +23,7 @@ Route::middleware(['api', 'auth:sanctum'])->group(function (): void {
     Route::post('auth/logout', LogoutUsersController::class)->name('auth.logout');
 
     Route::prefix('missions')->group(function (): void {
+        Route::get('/', ListMissionsController::class)->name('missions.list');
         Route::post('/', StoreMissionsController::class)->name('missions.store');
         Route::get('{mission}', ShowMissionsController::class)->name('missions.show');
         Route::put('{mission}', UpdateMissionsController::class)->name('missions.update');

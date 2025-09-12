@@ -6,6 +6,8 @@ namespace App\Models;
 
 use App\Enums\MissionStatus;
 use App\Enums\MissionType;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,6 +33,18 @@ class Mission extends Model
         'status' => MissionStatus::class,
         'type' => MissionType::class,
     ];
+
+    #[Scope]
+    protected function ofUser(Builder $query, User $customer): void
+    {
+        $query->where('customer_id', $customer->id);
+    }
+
+    #[Scope]
+    protected function live(Builder $query): void
+    {
+        $query->where('status', MissionStatus::LIVE);
+    }
 
     public function service(): BelongsTo
     {
