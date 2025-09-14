@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\UserRole;
+use App\Models\Agent;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -68,5 +70,16 @@ class UserFactory extends Factory
     public function banned(): static
     {
         return $this->state(fn (array $attributes): array => ['banned_at' => Carbon::now()]);
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (User $user): void { // @phpstan-ignore-line
+            if ($user->role !== UserRole::AGENT) {
+                return;
+            }
+
+            Agent::factory()->for($user)->create();
+        });
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\Mission\ListMissionsController;
 use App\Http\Controllers\Mission\ShowMissionsController;
 use App\Http\Controllers\Mission\StoreMissionsController;
 use App\Http\Controllers\Mission\UpdateMissionsController;
+use App\Http\Controllers\Proposal\StoreMissionProposalsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,5 +29,7 @@ Route::middleware(['api', 'auth:sanctum'])->group(function (): void {
         Route::get('{mission}', ShowMissionsController::class)->name('missions.show');
         Route::put('{mission}', UpdateMissionsController::class)->name('missions.update');
         Route::delete('{mission}', DeleteMissionsController::class)->name('missions.delete');
+
+        Route::post('{mission}/proposals', StoreMissionProposalsController::class)->name('missions.proposals.store');
     });
 });

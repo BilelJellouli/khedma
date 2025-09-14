@@ -16,6 +16,13 @@ class Proposal extends Model
 
     protected $fillable = [
         'initiator',
+        'status',
+        'agent_message',
+        'price',
+        'pricing_unit',
+        'seen_at_by_customer',
+        'rejection_reason',
+        'rejection_message',
     ];
 
     public function mission(): BelongsTo
@@ -26,10 +33,5 @@ class Proposal extends Model
     public function agent(): BelongsTo
     {
         return $this->belongsTo(Agent::class);
-    }
-
-    public function customer(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'customer_id');
     }
 }

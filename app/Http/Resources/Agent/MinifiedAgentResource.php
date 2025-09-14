@@ -11,7 +11,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @property-read Agent $resource
  */
-class ReducedAgentResource extends JsonResource
+class MinifiedAgentResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
