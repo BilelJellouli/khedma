@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\ProposalInitiator;
+use App\Enums\ProposalStatus;
 use App\Models\Agent;
 use App\Models\Mission;
 use App\Models\Proposal;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProposalFactory extends Factory
@@ -19,9 +19,9 @@ class ProposalFactory extends Factory
     {
         return [
             'mission_id' => Mission::factory(),
-            'customer_id' => User::factory()->customer(),
             'agent_id' => Agent::factory(),
             'initiator' => $this->faker->randomElement(ProposalInitiator::cases()),
+            'status' => $this->faker->randomElement(ProposalStatus::cases()),
         ];
     }
 

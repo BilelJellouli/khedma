@@ -16,9 +16,15 @@ return new class extends Migration
         Schema::create('proposals', function (Blueprint $table): void {
             $table->uuid('id')->primary();
             $table->foreignUuid('mission_id')->constrained()->cascadeOnDelete();
-            $table->foreignUuid('customer_id')->constrained('users')->cascadeOnDelete();
             $table->foreignUuid('agent_id')->constrained()->cascadeOnDelete();
             $table->string('initiator');
+            $table->string('status');
+            $table->timestamp('seen_at_by_customer')->nullable();
+            $table->text('agent_message')->nullable();
+            $table->integer('price')->nullable();
+            $table->string('pricing_unit')->nullable();
+            $table->string('rejection_reason')->nullable();
+            $table->string('rejection_message')->nullable();
             $table->timestamps();
         });
     }
