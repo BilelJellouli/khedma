@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Feature\Http\Requests\Proposal;
+namespace Tests\Feature\Http\Requests\Proposal;
 
 use App\Models\Mission;
 use App\Models\User;

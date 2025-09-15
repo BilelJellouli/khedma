@@ -10,6 +10,7 @@ use App\Http\Controllers\Mission\ListMissionsController;
 use App\Http\Controllers\Mission\ShowMissionsController;
 use App\Http\Controllers\Mission\StoreMissionsController;
 use App\Http\Controllers\Mission\UpdateMissionsController;
+use App\Http\Controllers\Proposal\ApproveMissionProposalsController;
 use App\Http\Controllers\Proposal\StoreMissionProposalsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,5 +32,6 @@ Route::middleware(['api', 'auth:sanctum'])->group(function (): void {
         Route::delete('{mission}', DeleteMissionsController::class)->name('missions.delete');
 
         Route::post('{mission}/proposals', StoreMissionProposalsController::class)->name('missions.proposals.store');
+        Route::put('{mission}/proposals/{proposal}', ApproveMissionProposalsController::class)->name('missions.proposals.approve');
     });
 });

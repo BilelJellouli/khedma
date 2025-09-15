@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Feature\Actions\Proposal;
+namespace Tests\Feature\Actions\Proposal;
 
 use App\Actions\Proposal\CreateProposalAction;
 use App\Enums\PricingUnit;
