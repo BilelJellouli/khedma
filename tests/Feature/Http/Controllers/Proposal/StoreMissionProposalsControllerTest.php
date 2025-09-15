@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Feature\Http\Controllers;
+namespace Tests\Feature\Http\Controllers\Proposal;
 
 use App\Actions\Proposal\CreateProposalAction;
 use App\Enums\PricingUnit;

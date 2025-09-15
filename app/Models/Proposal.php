@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\PricingUnit;
+use App\Enums\ProposalInitiator;
+use App\Enums\ProposalRejectionReason;
+use App\Enums\ProposalStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +27,13 @@ class Proposal extends Model
         'seen_at_by_customer',
         'rejection_reason',
         'rejection_message',
+    ];
+
+    protected $casts = [
+        'initiator' => ProposalInitiator::class,
+        'status' => ProposalStatus::class,
+        'pricing_unit' => PricingUnit::class,
+        'rejection_reason' => ProposalRejectionReason::class,
     ];
 
     public function mission(): BelongsTo

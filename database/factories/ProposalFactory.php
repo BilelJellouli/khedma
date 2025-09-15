@@ -39,4 +39,19 @@ class ProposalFactory extends Factory
     {
         return $this->state(fn (array $attributes): array => ['initiator' => ProposalInitiator::SYSTEM]);
     }
+
+    public function pending(): static
+    {
+        return $this->state(fn (array $attributes): array => ['status' => ProposalStatus::PENDING]);
+    }
+
+    public function approved(): static
+    {
+        return $this->state(fn (array $attributes): array => ['status' => ProposalStatus::APPROVED]);
+    }
+
+    public function rejected(): static
+    {
+        return $this->state(fn (array $attributes): array => ['status' => ProposalStatus::REJECTED]);
+    }
 }
