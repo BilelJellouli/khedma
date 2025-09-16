@@ -13,6 +13,7 @@ use App\Http\Controllers\Mission\UpdateMissionsController;
 use App\Http\Controllers\Proposal\ApproveMissionProposalsController;
 use App\Http\Controllers\Proposal\RejectMissionProposalsController;
 use App\Http\Controllers\Proposal\StoreMissionProposalsController;
+use App\Http\Controllers\Proposal\WithdrawMissionProposalsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,5 +36,6 @@ Route::middleware(['api', 'auth:sanctum'])->group(function (): void {
         Route::post('{mission}/proposals', StoreMissionProposalsController::class)->name('missions.proposals.store');
         Route::put('{mission}/proposals/{proposal}/approve', ApproveMissionProposalsController::class)->name('missions.proposals.approve');
         Route::put('{mission}/proposals/{proposal}/reject', RejectMissionProposalsController::class)->name('missions.proposals.reject');
+        Route::put('{mission}/proposals/{proposal}/withdraw', WithdrawMissionProposalsController::class)->name('missions.proposals.withdraw');
     });
 });
