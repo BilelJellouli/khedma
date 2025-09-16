@@ -79,6 +79,10 @@ class UserFactory extends Factory
                 return;
             }
 
+            if (Agent::firstWhere('user_id', $user->id)) {
+                return;
+            }
+
             Agent::factory()->for($user)->create();
         });
     }
