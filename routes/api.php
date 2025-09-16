@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Agent\StoreAgentsController;
 use App\Http\Controllers\Authentication\LoginUsersController;
 use App\Http\Controllers\Authentication\LogoutUsersController;
 use App\Http\Controllers\Authentication\RegisterUsersController;
@@ -37,5 +38,9 @@ Route::middleware(['api', 'auth:sanctum'])->group(function (): void {
         Route::put('{mission}/proposals/{proposal}/approve', ApproveMissionProposalsController::class)->name('missions.proposals.approve');
         Route::put('{mission}/proposals/{proposal}/reject', RejectMissionProposalsController::class)->name('missions.proposals.reject');
         Route::put('{mission}/proposals/{proposal}/withdraw', WithdrawMissionProposalsController::class)->name('missions.proposals.withdraw');
+    });
+
+    Route::prefix('agents')->group(function (): void {
+        Route::post('/', StoreAgentsController::class)->name('agents.store');
     });
 });
