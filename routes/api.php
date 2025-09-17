@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Agent\StoreAgentContactsController;
 use App\Http\Controllers\Agent\StoreAgentsController;
 use App\Http\Controllers\Authentication\LoginUsersController;
 use App\Http\Controllers\Authentication\LogoutUsersController;
@@ -42,5 +43,6 @@ Route::middleware(['api', 'auth:sanctum'])->group(function (): void {
 
     Route::prefix('agents')->group(function (): void {
         Route::post('/', StoreAgentsController::class)->name('agents.store');
+        Route::post('contacts', StoreAgentContactsController::class)->name('agents.contacts.store');
     });
 });

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Controllers;
+namespace Feature\Http\Controllers\Agent;
 
 use App\Actions\Agent\CreateAgentAction;
 use App\Enums\AgentAvailability;

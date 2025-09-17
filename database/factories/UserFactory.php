@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
+    private bool $generateAgentProfile = false;
     /**
      * The current password being used by the factory.
      */
@@ -33,6 +34,12 @@ class UserFactory extends Factory
             'google_id' => $this->faker->uuid(),
             'deactivated_at' => null,
         ];
+    }
+
+    public function withAgentProfile(): static
+    {
+        $this->generateAgentProfile = true;
+        return $this;
     }
 
     public function unverified(): static
@@ -76,6 +83,10 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user): void { // @phpstan-ignore-line
             if ($user->role !== UserRole::AGENT) {
+                return;
+            }
+
+            if (! $this->generateAgentProfile) {
                 return;
             }
 
