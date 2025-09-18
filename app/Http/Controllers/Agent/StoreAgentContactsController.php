@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Agent;
 
 use App\Actions\Agent\CreateAgentContactAction;
@@ -10,7 +12,8 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class StoreAgentContactsController {
+class StoreAgentContactsController
+{
     public function __invoke(
         CreateAgentContactRequest $request,
         CreateAgentContactAction $createAgentContact,

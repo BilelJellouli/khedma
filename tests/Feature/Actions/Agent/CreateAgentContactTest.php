@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Feature\Actions\Agent;
 
 use App\Actions\Agent\CreateAgentContactAction;
@@ -16,7 +18,9 @@ class CreateAgentContactTest extends TestCase
     use RefreshDatabase;
 
     private Agent $agent;
+
     private array $data;
+
     private CreateAgentContactAction $action;
 
     public function testCreateAgentContactAndReturn(): void

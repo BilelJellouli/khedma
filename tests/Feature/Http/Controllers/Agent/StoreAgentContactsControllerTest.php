@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Feature\Http\Controllers\Agent;
 
 use App\Actions\Agent\CreateAgentContactAction;
@@ -14,8 +16,11 @@ class StoreAgentContactsControllerTest extends TestCase
     use RefreshDatabase;
 
     private Agent $agent;
+
     private User $user;
+
     private array $data;
+
     private string $route;
 
     public function testCreatesAgentContactAndReturnCreated(): void
@@ -34,7 +39,7 @@ class StoreAgentContactsControllerTest extends TestCase
         $spy->shouldHaveReceived('execute')
             ->once()
             ->withArgs(
-                fn (Agent $agent, array $data) => $agent->is($this->agent) && $data === $this->data
+                fn (Agent $agent, array $data): bool => $agent->is($this->agent) && $data === $this->data
             );
     }
 

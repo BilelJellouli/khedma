@@ -37,7 +37,7 @@ class UserFactory extends Factory
 
     public function withAgentProfile(): static
     {
-        return $this->afterCreating(function (User $user) {
+        return $this->afterCreating(function (User $user): void { // @phpstan-ignore-line
             if ($user->role !== UserRole::AGENT) {
                 return;
             }

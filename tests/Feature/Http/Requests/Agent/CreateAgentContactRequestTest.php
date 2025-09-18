@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Feature\Http\Requests\Agent;
 
 use App\Models\User;
@@ -11,6 +13,7 @@ class CreateAgentContactRequestTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private string $route;
 
     public function testDenyNonAgentUsers(): void
