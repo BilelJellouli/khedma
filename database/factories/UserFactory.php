@@ -35,6 +35,21 @@ class UserFactory extends Factory
         ];
     }
 
+    public function withAgentProfile(): static
+    {
+        return $this->afterCreating(function (User $user): void { // @phpstan-ignore-line
+            if ($user->role !== UserRole::AGENT) {
+                return;
+            }
+
+            if (Agent::firstWhere('user_id', $user->id)) {
+                return;
+            }
+
+            Agent::factory()->create(['user_id' => $user->id]);
+        });
+    }
+
     public function unverified(): static
     {
         return $this->state(fn (array $attributes): array => [
@@ -70,20 +85,5 @@ class UserFactory extends Factory
     public function banned(): static
     {
         return $this->state(fn (array $attributes): array => ['banned_at' => Carbon::now()]);
-    }
-
-    public function configure(): static
-    {
-        return $this->afterCreating(function (User $user): void { // @phpstan-ignore-line
-            if ($user->role !== UserRole::AGENT) {
-                return;
-            }
-
-            if (Agent::firstWhere('user_id', $user->id)) {
-                return;
-            }
-
-            Agent::factory()->for($user)->create();
-        });
     }
 }

@@ -63,7 +63,7 @@ class WithdrawMissionProposalsControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->agent = User::factory()->agent()->create();
+        $this->agent = User::factory()->agent()->withAgentProfile()->create();
         $agent = Agent::firstWhere('user_id', $this->agent->id);
 
         $this->mission = Mission::factory()->create();
