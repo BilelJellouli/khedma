@@ -107,7 +107,7 @@ class StoreMissionProposalsControllerTest extends TestCase
     {
         parent::setUp();
         $this->mission = Mission::factory()->create();
-        $this->agent = User::factory()->agent()->create();
+        $this->agent = User::factory()->agent()->withAgentProfile()->create();
         $this->route = route('missions.proposals.store', ['mission' => $this->mission]);
     }
 }

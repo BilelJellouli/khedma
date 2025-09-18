@@ -14,7 +14,6 @@ use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
-    private bool $generateAgentProfile = false;
     /**
      * The current password being used by the factory.
      */
@@ -38,8 +37,17 @@ class UserFactory extends Factory
 
     public function withAgentProfile(): static
     {
-        $this->generateAgentProfile = true;
-        return $this;
+        return $this->afterCreating(function (User $user) {
+            if ($user->role !== UserRole::AGENT) {
+                return;
+            }
+
+            if (Agent::firstWhere('user_id', $user->id)) {
+                return;
+            }
+
+            Agent::factory()->create(['user_id' => $user->id]);
+        });
     }
 
     public function unverified(): static
@@ -77,24 +85,5 @@ class UserFactory extends Factory
     public function banned(): static
     {
         return $this->state(fn (array $attributes): array => ['banned_at' => Carbon::now()]);
-    }
-
-    public function configure(): static
-    {
-        return $this->afterCreating(function (User $user): void { // @phpstan-ignore-line
-            if ($user->role !== UserRole::AGENT) {
-                return;
-            }
-
-            if (! $this->generateAgentProfile) {
-                return;
-            }
-
-            if (Agent::firstWhere('user_id', $user->id)) {
-                return;
-            }
-
-            Agent::factory()->for($user)->create();
-        });
     }
 }
